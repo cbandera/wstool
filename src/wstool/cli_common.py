@@ -41,7 +41,7 @@ import re
 from optparse import OptionParser
 from wstool.common import samefile, MultiProjectException, select_elements
 
-ONLY_OPTION_VALID_ATTRS = ['path', 'localname', 'version',
+ONLY_OPTION_VALID_ATTRS = ['path', 'localname', 'version', 'cur_version',
                            'revision', 'cur_revision', 'uri', 'cur_uri', 'scmtype']
 
 
@@ -415,7 +415,7 @@ def get_info_table_raw_csv(config, properties, localnames):
         if not attr in ONLY_OPTION_VALID_ATTRS:
             OptionParser().error("Invalid --only option '%s', valids are %s" %
                                  (attr, ONLY_OPTION_VALID_ATTRS))
-        if attr in ['cur_revision', 'cur_uri', 'revision']:
+        if attr in ['cur_revision', 'cur_uri', 'revision', 'cur_version']:
             lookup_required = True
     elements = select_elements(config, localnames)
     result=[]
@@ -436,6 +436,8 @@ def get_info_table_raw_csv(config, properties, localnames):
                 output.append(spec.get_uri() or '')
             if 'version' == attr:
                 output.append(spec.get_version() or '')
+            if 'cur_version' == attr:
+                output.append(spec.get_curr_version() or '')
             if 'revision' == attr:
                 output.append(spec.get_revision() or '')
             if 'cur_uri' == attr:
