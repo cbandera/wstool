@@ -413,8 +413,8 @@ def get_info_table_raw_csv(config, properties, localnames):
     lookup_required = False
     for attr in properties:
         if not attr in ONLY_OPTION_VALID_ATTRS:
-            parser.error("Invalid --only option '%s', valids are %s" %
-                         (attr, ONLY_OPTION_VALID_ATTRS))
+            OptionParser().error("Invalid --only option '%s', valids are %s" %
+                                 (attr, ONLY_OPTION_VALID_ATTRS))
         if attr in ['cur_revision', 'cur_uri', 'revision']:
             lookup_required = True
     elements = select_elements(config, localnames)
